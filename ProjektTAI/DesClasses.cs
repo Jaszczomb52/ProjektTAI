@@ -16,19 +16,6 @@ namespace ProjektTAI
         public List<object> Zlecenies { get; set; }
     }
 
-    public class CzescNaMagazyny
-    {
-        public int Id { get; set; }
-        public string KodSegmentu { get; set; }
-        public int Idproducenta { get; set; }
-        public int Idtypu { get; set; }
-        public int Idmodelu { get; set; }
-        public bool Archiwum { get; set; }
-        public object IdmodeluNavigation { get; set; }
-        public object IdproducentaNavigation { get; set; }
-        public object IdtypuNavigation { get; set; }
-        public List<object> CzescUzytaDoZlecenia { get; set; }
-    }
 
     public interface IDictionaries 
     {
@@ -71,6 +58,51 @@ namespace ProjektTAI
         {
             return $"{Model}";
         }
+    }
+
+    public class CzescUzytaDoZlecenium
+    {
+        public int id { get; set; }
+        public DateTime dataWpisu { get; set; }
+        public int idzlecenia { get; set; }
+        public int idczesci { get; set; }
+        public object idczesciNavigation { get; set; }
+        public object idzleceniaNavigation { get; set; }
+    }
+
+    public class IdmodeluNavigation
+    {
+        public int id { get; set; }
+        public string model { get; set; }
+        public List<object> czescNaMagazynies { get; set; }
+    }
+
+    public class IdproducentaNavigation
+    {
+        public int id { get; set; }
+        public string nazwa { get; set; }
+        public List<object> czescNaMagazynies { get; set; }
+    }
+
+    public class IdtypuNavigation
+    {
+        public int id { get; set; }
+        public string typ { get; set; }
+        public List<object> czescNaMagazynies { get; set; }
+    }
+
+    public class CzescNaMagazyny
+    {
+        public int id { get; set; }
+        public string kodSegmentu { get; set; }
+        public int idproducenta { get; set; }
+        public int idtypu { get; set; }
+        public int idmodelu { get; set; }
+        public bool archiwum { get; set; }
+        public Models idmodeluNavigation { get; set; }
+        public Producent idproducentaNavigation { get; set; }
+        public Type idtypuNavigation { get; set; }
+        public List<CzescUzytaDoZlecenium> czescUzytaDoZlecenia { get; set; }
     }
 
 
