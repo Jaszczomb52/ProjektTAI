@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,13 @@ namespace ProjektTAI
 {
     public class Emplo
     {
+        [DisplayName("Identyfikator")]
         public int Id { get; set; }
+        [DisplayName("Imię")]
         public string Imie { get; set; }
+        [DisplayName("Nazwisko")]
         public string Nazwisko { get; set; }
+        [DisplayName("Numer telefonu")]
         public string NumerTelefonu { get; set; }
         public List<object> SpecjalizacjePracownikas { get; set; }
         public List<object> Zlecenies { get; set; }
@@ -94,15 +99,34 @@ namespace ProjektTAI
     public class CzescNaMagazyny
     {
         public int id { get; set; }
+        [DisplayName("Kod segmentu")]
         public string kodSegmentu { get; set; }
         public int idproducenta { get; set; }
         public int idtypu { get; set; }
         public int idmodelu { get; set; }
+        [DisplayName("Zarchiwizowane")]
         public bool archiwum { get; set; }
+        [DisplayName("Model części")]
         public Models idmodeluNavigation { get; set; }
+        [DisplayName("Producent części")]
         public Producent idproducentaNavigation { get; set; }
+        [DisplayName("Typ części")]
         public Type idtypuNavigation { get; set; }
         public List<CzescUzytaDoZlecenium> czescUzytaDoZlecenia { get; set; }
+    }
+
+    public class CustomCzescNaMagazyny
+    {
+        [DisplayName("Kod segmentu")]
+        public string kodSegmentu { get; set; }
+        [DisplayName("Zarchiwizowane")]
+        public bool archiwum { get; set; }
+        [DisplayName("Model części")]
+        public Models idmodeluNavigation { get; set; }
+        [DisplayName("Producent części")]
+        public Producent idproducentaNavigation { get; set; }
+        [DisplayName("Typ części")]
+        public Type idtypuNavigation { get; set; }
     }
 
 

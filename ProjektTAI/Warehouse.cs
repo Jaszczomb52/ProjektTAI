@@ -30,7 +30,14 @@ namespace ProjektTAI
                 {
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
                     var emp = JsonConvert.DeserializeObject<CzescNaMagazyny[]>(text);
-                    dataGridView1.DataSource = emp;
+                    dataGridView1.DataSource = emp.Select(x => new CustomCzescNaMagazyny
+                    {
+                        idtypuNavigation = x.idtypuNavigation,
+                        idmodeluNavigation = x.idmodeluNavigation,
+                        idproducentaNavigation = x.idproducentaNavigation,
+                        archiwum = x.archiwum,
+                        kodSegmentu = x.kodSegmentu
+                    }).ToList(); // dodać lepsze wyświetlanie <-----
                 }
                 catch (Exception e)
                 {
@@ -41,17 +48,23 @@ namespace ProjektTAI
 
         private void button8_Click(object sender, EventArgs e)
         {
-            EditDictionaries ED = new EditDictionaries("producer");
+            btnEvent("producer");
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            EditDictionaries ED = new EditDictionaries("model");
+            btnEvent("model");
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            EditDictionaries ED = new EditDictionaries("type");
+            btnEvent("type");
+        }
+
+        private void btnEvent(string type)
+        {
+            EditDictionaries ED = new EditDictionaries(type);
+            ED.FormClosing += (closedSender, closedE) => LoadOnSetup();
         }
     }
 }
