@@ -26,6 +26,7 @@ namespace ProjektTAI
 
         async private void GetDictionary(string type)
         {
+            comboBox1.Items.Clear();
             string url = "";
             if (type == "model")
                 url = "http://localhost:5297/api/Main/GetModels";
@@ -63,12 +64,13 @@ namespace ProjektTAI
         private void button1_Click(object sender, EventArgs e)
         {
             DictionaryMonit dm = new DictionaryMonit(type);
-
+            dm.FormClosing += (closedSender, closedE) => GetDictionary(type);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             DictionaryMonit dm = new DictionaryMonit(type, (IDictionaries)comboBox1.SelectedItem);
+            dm.FormClosing += (closedSender, closedE) => GetDictionary(type);
         }
 
         async private void button3_Click(object sender, EventArgs e)
@@ -96,6 +98,7 @@ namespace ProjektTAI
                     MessageBox.Show(ex.ToString());
                 }
             }
+            GetDictionary(type);
         }
     }
 }
