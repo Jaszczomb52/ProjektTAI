@@ -30,7 +30,14 @@ namespace ProjektTAI
                 {
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
                     var emp = JsonConvert.DeserializeObject<CzescNaMagazyny[]>(text);
-                    dataGridView1.DataSource = emp; // dodać lepsze wyświetlanie <-----
+                    dataGridView1.DataSource = emp.Select(x => new CustomCzescNaMagazyny
+                    {
+                        idtypuNavigation = x.idtypuNavigation,
+                        idmodeluNavigation = x.idmodeluNavigation,
+                        idproducentaNavigation = x.idproducentaNavigation,
+                        archiwum = x.archiwum,
+                        kodSegmentu = x.kodSegmentu
+                    }).ToList(); // dodać lepsze wyświetlanie <-----
                 }
                 catch (Exception e)
                 {
