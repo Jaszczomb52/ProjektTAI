@@ -15,7 +15,7 @@ namespace ProjektTAI
 {
     public partial class Employees : Form
     {
-        Emplo[]? employees; 
+        Emplo[]? employees = null; 
         public Employees()
         {
             InitializeComponent();
@@ -24,21 +24,9 @@ namespace ProjektTAI
 
         void LoadOnSetup()
         {
-            string url = "http://localhost:5297/api/Main/Employees";
-            using (WebClient client = new WebClient())
-            {
-                try
-                {
-                    string text = Encoding.UTF8.GetString(client.DownloadData(url));
-                    var emp = JsonConvert.DeserializeObject<Emplo[]>(text);
-                    dataGridView1.DataSource = emp;
-                    employees = emp;
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show(e.ToString());
-                }
-            }
+            employees = GetEmplos();
+            employees = employees is null ? employees = new Emplo[1] : employees;
+            dataGridView1.DataSource = employees;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -120,6 +108,31 @@ namespace ProjektTAI
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Specjalizacje S = new Specjalizacje(employees);
+            S.FormClosing += (s, e) => LoadOnSetup();
+        }
+
+        public static Emplo[] GetEmplos()
+        {
+            string url = "http://localhost:5297/api/Main/Employees";
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    string text = Encoding.UTF8.GetString(client.DownloadData(url));
+                    var emp = JsonConvert.DeserializeObject<Emplo[]>(text);
+                    return emp;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    return null; ;
                 }
             }
         }

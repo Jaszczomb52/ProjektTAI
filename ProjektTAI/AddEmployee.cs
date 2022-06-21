@@ -58,8 +58,8 @@ namespace ProjektTAI
             // creating object from data in Form
             if(emp.Id == 0)
             {
-                emp.SpecjalizacjePracownikas = new List<object>();
-                emp.Zlecenies = new List<object>();
+                emp.SpecjalizacjePracownikas = new List<SpecjalizacjePracownika>();
+                emp.Zlecenies = new List<Zleceny>();
             };
             emp.Imie = textBox1.Text;
             emp.Nazwisko = textBox2.Text;

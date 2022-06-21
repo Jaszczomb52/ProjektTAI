@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace ProjektTAI
 {
-    public class Emplo
-    {
-        [DisplayName("Identyfikator")]
-        public int Id { get; set; }
-        [DisplayName("Imię")]
-        public string Imie { get; set; }
-        [DisplayName("Nazwisko")]
-        public string Nazwisko { get; set; }
-        [DisplayName("Numer telefonu")]
-        public string NumerTelefonu { get; set; }
-        public List<object> SpecjalizacjePracownikas { get; set; }
-        public List<object> Zlecenies { get; set; }
-    }
+    //public class Emplo
+    //{
+    //    [DisplayName("Identyfikator")]
+    //    public int Id { get; set; }
+    //    [DisplayName("Imię")]
+    //    public string Imie { get; set; }
+    //    [DisplayName("Nazwisko")]
+    //    public string Nazwisko { get; set; }
+    //    [DisplayName("Numer telefonu")]
+    //    public string NumerTelefonu { get; set; }
+    //    public List<object> SpecjalizacjePracownikas { get; set; }
+    //    public List<object> Zlecenies { get; set; }
+
+        
+    //}
 
 
     public interface IDictionaries 
@@ -79,21 +81,21 @@ namespace ProjektTAI
     {
         public int id { get; set; }
         public string model { get; set; }
-        public List<object> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
     }
 
     public class IdproducentaNavigation
     {
         public int id { get; set; }
         public string nazwa { get; set; }
-        public List<object> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
     }
 
     public class IdtypuNavigation
     {
         public int id { get; set; }
         public string typ { get; set; }
-        public List<object> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
     }
 
     public class CzescNaMagazyny
@@ -129,5 +131,60 @@ namespace ProjektTAI
         public Type idtypuNavigation { get; set; }
     }
 
+    public class Emplo
+    {
+        [DisplayName("Identyfikator")]
+        public int Id { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
+        public string NumerTelefonu { get; set; }
+        public List<SpecjalizacjePracownika> SpecjalizacjePracownikas { get; set; }
+        public List<Zleceny> Zlecenies { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Imie} {Nazwisko} {NumerTelefonu}";
+        }
+    }
+    public class CustomSpecjalizacjePracownika
+    {
+        
+        [DisplayName("Diagnostyka problemu\n(1-5)")]
+        public int Diagnostyka { get; set; }
+        [DisplayName("Naprawa części\n(1-5)")]
+        public int NaprawaCzesci { get; set; }
+        [DisplayName("Naprawa oprogramowania\n(1-5)")]
+        public int NaprawaSoftu { get; set; }
+        [DisplayName("Budowa urządzeń\n(1-5)")]
+        public int Budowanie { get; set; }
+        
+    }
+
+    public class SpecjalizacjePracownika : CustomSpecjalizacjePracownika
+    {
+        [DisplayName("Identyfikator")]
+        public int Id { get; set; }
+        public int Idpracownika { get; set; }
+        public object IdpracownikaNavigation { get; set; }
+    }
+
+
+    public class Zleceny
+    {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
+        public bool KontaktTelefoniczny { get; set; }
+        public DateTime DataPrzyjecia { get; set; }
+        public double Koszt { get; set; }
+        public object DataWydania { get; set; }
+        public object NumerTelefonu { get; set; }
+        public string Status { get; set; }
+        public bool SzybkieZlecenie { get; set; }
+        public string OpisZlecenia { get; set; }
+        public int Idpracownika { get; set; }
+        public object IdpracownikaNavigation { get; set; }
+        public List<object> CzescUzytaDoZlecenia { get; set; }
+    }
 }
