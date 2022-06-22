@@ -160,10 +160,14 @@ namespace ProjektTAI
         
     }
 
-    public class SpecjalizacjePracownika : CustomSpecjalizacjePracownika
+    public class SpecjalizacjePracownika
     {
         [DisplayName("Identyfikator")]
         public int Id { get; set; }
+        public int Diagnostyka { get; set; }
+        public int NaprawaCzesci { get; set; }
+        public int NaprawaSoftu { get; set; }
+        public int Budowanie { get; set; }
         public int Idpracownika { get; set; }
         public object IdpracownikaNavigation { get; set; }
     }
