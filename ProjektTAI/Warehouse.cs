@@ -14,6 +14,7 @@ namespace ProjektTAI
 {
     public partial class Warehouse : Form
     {
+        List<CzescNaMagazyny> cz;
         public Warehouse()
         {
             InitializeComponent();
@@ -29,15 +30,15 @@ namespace ProjektTAI
                 try
                 {
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
-                    var emp = JsonConvert.DeserializeObject<CzescNaMagazyny[]>(text);
-                    dataGridView1.DataSource = emp.Select(x => new CustomCzescNaMagazyny
+                    cz = JsonConvert.DeserializeObject<List<CzescNaMagazyny>>(text)!;
+                    dataGridView1.DataSource = cz.Select(x => new CustomCzescNaMagazyny
                     {
                         idtypuNavigation = x.idtypuNavigation,
                         idmodeluNavigation = x.idmodeluNavigation,
                         idproducentaNavigation = x.idproducentaNavigation,
                         archiwum = x.archiwum,
                         kodSegmentu = x.kodSegmentu
-                    }).ToList(); // dodać lepsze wyświetlanie <-----
+                    }).ToList();
                 }
                 catch (Exception e)
                 {
@@ -65,6 +66,25 @@ namespace ProjektTAI
         {
             EditDictionaries ED = new EditDictionaries(type);
             ED.FormClosing += (closedSender, closedE) => LoadOnSetup();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenAP(false);
+        }
+
+        void OpenAP(bool modify)
+        {
+            if(modify)
+            {
+                AddPart AP = new AddPart(new CzescNaMagazyny(), true); //<----------- zaimplementowac zaczytywanie wybranego obiektu z datagrid
+                AP.FormClosing += (s, e) => LoadOnSetup();
+            }
+            else
+            {
+                AddPart AP = new AddPart();
+                AP.FormClosing += (s, e) => LoadOnSetup();
+            }
         }
     }
 }

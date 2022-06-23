@@ -109,12 +109,12 @@ namespace ProjektTAI
         [DisplayName("Zarchiwizowane")]
         public bool archiwum { get; set; }
         [DisplayName("Model części")]
-        public Models idmodeluNavigation { get; set; }
+        public Models? idmodeluNavigation { get; set; }
         [DisplayName("Producent części")]
-        public Producent idproducentaNavigation { get; set; }
+        public Producent? idproducentaNavigation { get; set; }
         [DisplayName("Typ części")]
-        public Type idtypuNavigation { get; set; }
-        public List<CzescUzytaDoZlecenium> czescUzytaDoZlecenia { get; set; }
+        public Type? idtypuNavigation { get; set; }
+        public List<CzescUzytaDoZlecenium>? czescUzytaDoZlecenia { get; set; }
     }
 
     public class CustomCzescNaMagazyny

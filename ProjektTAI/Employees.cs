@@ -95,21 +95,7 @@ namespace ProjektTAI
                 return;
 
             string url = "http://localhost:5297/api/Main/DeleteEmployee";
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage res;
-                try
-                {
-                    res = await client.DeleteAsync(url + "/" + E.Id.ToString());
-                    if(res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
-                    LoadOnSetup();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }
+            Methods<Emplo>.Deleter(url, E.Id);
         }
 
         private void button4_Click(object sender, EventArgs e)

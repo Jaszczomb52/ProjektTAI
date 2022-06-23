@@ -55,7 +55,7 @@ namespace ProjektTAI
         {
             if (SpecChecker())
             {
-                Methods.Deleter("http://localhost:5297/api/Main/DeleteSpec", comboBox1.SelectedItem as Emplo is not null ? (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas[0].Id : -1);
+                Methods<Emplo>.Deleter("http://localhost:5297/api/Main/DeleteSpec", comboBox1.SelectedItem as Emplo is not null ? (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas[0].Id : -1);
                 LoadEmplo((Emplo)comboBox1.SelectedItem);
             }
             else
