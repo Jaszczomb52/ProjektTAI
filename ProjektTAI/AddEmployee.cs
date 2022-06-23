@@ -55,17 +55,12 @@ namespace ProjektTAI
                 return;
             }
 
-            // creating object from data in Form
-            if(emp.Id == 0)
-            {
-                emp.SpecjalizacjePracownikas = new List<SpecjalizacjePracownika>();
-                emp.Zlecenies = new List<Zleceny>();
-            };
+            emp.SpecjalizacjePracownikas = null;
+            emp.Zlecenies = null;
             emp.Imie = textBox1.Text;
             emp.Nazwisko = textBox2.Text;
             emp.NumerTelefonu = textBox3.Text;
 
-            // sending to API
             Methods<Emplo>.AddOrModify(url, emp,update);
             Close();
         }

@@ -73,6 +73,7 @@ namespace ProjektTAI
                 em.SpecjalizacjePracownikas[0].Diagnostyka = int.Parse(textBox3.Text);
                 em.SpecjalizacjePracownikas[0].Budowanie = int.Parse(textBox4.Text);
             }
+            em.SpecjalizacjePracownikas[0].IdpracownikaNavigation = null;
             Methods<SpecjalizacjePracownika>.AddOrModify(url,em.SpecjalizacjePracownikas[0], modify);
             Close();
         }

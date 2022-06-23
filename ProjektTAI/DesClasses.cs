@@ -27,7 +27,7 @@ namespace ProjektTAI
     public interface IDictionaries 
     {
         public int Id { get; set; }
-        public List<CzescNaMagazyny> CzescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? CzescNaMagazynies { get; set; }
     }
 
     public class Producent : IDictionaries
@@ -35,7 +35,7 @@ namespace ProjektTAI
         public int Id { get; set; }
         public string Nazwa { get; set; }
 
-        public List<CzescNaMagazyny> CzescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? CzescNaMagazynies { get; set; }
 
         public override string ToString()
         {
@@ -47,7 +47,7 @@ namespace ProjektTAI
     {
         public int Id { get; set; }
         public string Typ { get; set; }
-        public List<CzescNaMagazyny> CzescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? CzescNaMagazynies { get; set; }
 
         public override string ToString()
         {
@@ -59,7 +59,7 @@ namespace ProjektTAI
     {
         public int Id { get; set; }
         public string Model { get; set; }
-        public List<CzescNaMagazyny> CzescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? CzescNaMagazynies { get; set; }
 
         public override string ToString()
         {
@@ -73,29 +73,29 @@ namespace ProjektTAI
         public DateTime dataWpisu { get; set; }
         public int idzlecenia { get; set; }
         public int idczesci { get; set; }
-        public object idczesciNavigation { get; set; }
-        public object idzleceniaNavigation { get; set; }
+        public object? idczesciNavigation { get; set; }
+        public object? idzleceniaNavigation { get; set; }
     }
 
     public class IdmodeluNavigation
     {
         public int id { get; set; }
         public string model { get; set; }
-        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
     }
 
     public class IdproducentaNavigation
     {
         public int id { get; set; }
         public string nazwa { get; set; }
-        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
     }
 
     public class IdtypuNavigation
     {
         public int id { get; set; }
         public string typ { get; set; }
-        public List<CzescNaMagazyny> czescNaMagazynies { get; set; }
+        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
     }
 
     public class CzescNaMagazyny
@@ -124,11 +124,11 @@ namespace ProjektTAI
         [DisplayName("Zarchiwizowane")]
         public bool archiwum { get; set; }
         [DisplayName("Model części")]
-        public Models idmodeluNavigation { get; set; }
+        public Models? idmodeluNavigation { get; set; }
         [DisplayName("Producent części")]
-        public Producent idproducentaNavigation { get; set; }
+        public Producent? idproducentaNavigation { get; set; }
         [DisplayName("Typ części")]
-        public Type idtypuNavigation { get; set; }
+        public Type? idtypuNavigation { get; set; }
     }
 
     public class Emplo
@@ -138,8 +138,8 @@ namespace ProjektTAI
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public string NumerTelefonu { get; set; }
-        public List<SpecjalizacjePracownika> SpecjalizacjePracownikas { get; set; }
-        public List<Zleceny> Zlecenies { get; set; }
+        public List<SpecjalizacjePracownika>? SpecjalizacjePracownikas { get; set; }
+        public List<Zleceny>? Zlecenies { get; set; }
 
         public override string ToString()
         {
@@ -169,7 +169,7 @@ namespace ProjektTAI
         public int NaprawaSoftu { get; set; }
         public int Budowanie { get; set; }
         public int Idpracownika { get; set; }
-        public object IdpracownikaNavigation { get; set; }
+        public object? IdpracownikaNavigation { get; set; }
     }
 
 
@@ -188,7 +188,7 @@ namespace ProjektTAI
         public bool SzybkieZlecenie { get; set; }
         public string OpisZlecenia { get; set; }
         public int Idpracownika { get; set; }
-        public object IdpracownikaNavigation { get; set; }
-        public List<object> CzescUzytaDoZlecenia { get; set; }
+        public object? IdpracownikaNavigation { get; set; }
+        public List<object>? CzescUzytaDoZlecenia { get; set; }
     }
 }

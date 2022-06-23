@@ -81,16 +81,16 @@ namespace ProjektTAI
 
             if (obj is Models)
                 Methods<Models>.AddOrModify(url, update ?
-                    new Models() {Model = textBox1.Text,Id = obj.Id } :
-                    new Models() { Model = textBox1.Text }, update);
+                    new Models() {Model = textBox1.Text,Id = obj.Id,CzescNaMagazynies = null } :
+                    new Models() { Model = textBox1.Text,CzescNaMagazynies = null }, update);
             else if (obj is Producent)
                 Methods<Producent>.AddOrModify(url, update ?
-                    new Producent() { Nazwa = textBox1.Text, Id = obj.Id } :
-                    new Producent() { Nazwa = textBox1.Text }, update);
+                    new Producent() { Nazwa = textBox1.Text, Id = obj.Id, CzescNaMagazynies = null } :
+                    new Producent() { Nazwa = textBox1.Text, CzescNaMagazynies = null }, update);
             else if (obj is Type)
                 Methods<Type>.AddOrModify(url, update ?
-                    new Type() { Typ = textBox1.Text, Id = obj.Id } :
-                    new Type() { Typ = textBox1.Text }, update);
+                    new Type() { Typ = textBox1.Text, Id = obj.Id, CzescNaMagazynies = null } :
+                    new Type() { Typ = textBox1.Text, CzescNaMagazynies = null }, update);
 
         }
     }

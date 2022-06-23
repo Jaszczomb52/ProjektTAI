@@ -118,7 +118,7 @@ namespace ProjektTAI
                 catch (Exception e)
                 {
                     MessageBox.Show(e.ToString());
-                    return null; ;
+                    return null;
                 }
             }
         }
