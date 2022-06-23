@@ -15,6 +15,7 @@ namespace ProjektTAI
     {
         bool modify;
         Emplo em;
+        string url = "http://localhost:5297/api/Main/AddSpec";
         public AddSpec(Emplo em, bool modify)
         {
             InitializeComponent();
@@ -28,12 +29,34 @@ namespace ProjektTAI
                 textBox2.Text = (em.SpecjalizacjePracownikas[0]).NaprawaCzesci.ToString();
                 textBox3.Text = (em.SpecjalizacjePracownikas[0]).Diagnostyka.ToString();
                 textBox4.Text = (em.SpecjalizacjePracownikas[0]).Budowanie.ToString();
+                url = "http://localhost:5297/api/Main/UpdateSpec";
             }
         }
 
         async private void button1_Click(object sender, EventArgs e)
         {
-            if(!modify)
+            if (textBox1.Text == "" ||
+                textBox2.Text == "" ||
+                textBox3.Text == "" ||
+                textBox4.Text == "")
+
+                MessageBox.Show("Wpisz wszystkie wartości");
+
+            if (int.Parse(textBox1.Text) > 5 ||
+                int.Parse(textBox2.Text) > 5 ||
+                int.Parse(textBox3.Text) > 5 ||
+                int.Parse(textBox4.Text) > 5)
+
+                MessageBox.Show("Wartości nie mogą być większe od 5");
+
+            if (int.Parse(textBox1.Text) <= 0 ||
+                int.Parse(textBox2.Text) <= 0 ||
+                int.Parse(textBox3.Text) <= 0 ||
+                int.Parse(textBox4.Text) <= 0)
+
+                MessageBox.Show("Wartości nie mogą być mniejsze od 1");
+
+            if (!modify)
                 em.SpecjalizacjePracownikas.Add(new SpecjalizacjePracownika()
                 {
                     Id = 0,
@@ -50,26 +73,8 @@ namespace ProjektTAI
                 em.SpecjalizacjePracownikas[0].Diagnostyka = int.Parse(textBox3.Text);
                 em.SpecjalizacjePracownikas[0].Budowanie = int.Parse(textBox4.Text);
             }
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage res;
-                try
-                {
-                    res = modify ? 
-                        await client.PutAsJsonAsync("http://localhost:5297/api/Main/UpdateSpec", (SpecjalizacjePracownika)em.SpecjalizacjePracownikas[0]): 
-                        await client.PostAsJsonAsync("http://localhost:5297/api/Main/AddSpec", (SpecjalizacjePracownika)em.SpecjalizacjePracownikas[0]);
-
-                    if (res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
-                    else
-                        MessageBox.Show("Nieprawidłowe wywołanie");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-                Close();
-            }
+            Methods<SpecjalizacjePracownika>.AddOrModify(url,em.SpecjalizacjePracownikas[0], modify);
+            Close();
         }
     }
 }

@@ -79,57 +79,19 @@ namespace ProjektTAI
                 return;
             }
 
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage? res = null;
-                try
-                {
-                    if (update)
-                    {
-                        if (obj is Producent)
-                        {
-                            (obj as Producent).Nazwa = textBox1.Text;
-                            res = await client.PutAsJsonAsync(url, obj as Producent);
-                        }
-                        else if (obj is Type)
-                        {
-                            (obj as Type).Typ = textBox1.Text;
-                            res = await client.PutAsJsonAsync(url, obj as Type);
-                        }
-                        else if (obj is Models)
-                        {
-                            (obj as Models).Model = textBox1.Text;
-                            res = await client.PutAsJsonAsync(url, obj as Models);
-                        }
-                    }
-                    else
-                    {
-                        if (obj is Producent)
-                        {
-                            (obj as Producent).Nazwa = textBox1.Text;
-                            res = await client.PostAsJsonAsync(url, obj as Producent);
-                        }
-                        else if (obj is Type)
-                        {
-                            (obj as Type).Typ = textBox1.Text;
-                            res = await client.PostAsJsonAsync(url, obj as Type);
-                        }
-                        else if (obj is Models)
-                        {
-                            (obj as Models).Model = textBox1.Text;
-                            res = await client.PostAsJsonAsync(url, obj as Models);
-                        }
-                    }
+            if (obj is Models)
+                Methods<Models>.AddOrModify(url, update ?
+                    new Models() {Model = textBox1.Text,Id = obj.Id } :
+                    new Models() { Model = textBox1.Text }, update);
+            else if (obj is Producent)
+                Methods<Producent>.AddOrModify(url, update ?
+                    new Producent() { Nazwa = textBox1.Text, Id = obj.Id } :
+                    new Producent() { Nazwa = textBox1.Text }, update);
+            else if (obj is Type)
+                Methods<Type>.AddOrModify(url, update ?
+                    new Type() { Typ = textBox1.Text, Id = obj.Id } :
+                    new Type() { Typ = textBox1.Text }, update);
 
-                    if (res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }
         }
     }
 }

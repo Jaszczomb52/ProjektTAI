@@ -66,24 +66,8 @@ namespace ProjektTAI
             emp.NumerTelefonu = textBox3.Text;
 
             // sending to API
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage res;
-                try
-                {
-                    if (update)
-                        res = await client.PutAsJsonAsync(url, emp);
-                    else
-                        res = await client.PostAsJsonAsync(url, emp);
-                    if (res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }
+            Methods<Emplo>.AddOrModify(url, emp,update);
+            Close();
         }
     }
 }
