@@ -45,6 +45,9 @@ namespace ProjektTAI
 
         async private void button1_Click(object sender, EventArgs e)
         {
+            cz.idmodeluNavigation = null;
+            cz.idtypuNavigation = null;
+            cz.idproducentaNavigation = null;
             Methods<CzescNaMagazyny>.AddOrModify(url,cz, modify);
             Close();
         }
