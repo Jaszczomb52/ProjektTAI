@@ -25,21 +25,21 @@ namespace ProjektTAI
             {
                 obj = (Models)dict;
                 label1.Text = "Wpisz model";
-                textBox1.Text = (dict as Models).Model;
+                textBox1.Text = (dict as Models)!.Model;
                 url = "http://localhost:5297/api/Main/UpdateModel";
             }
             else if (type == "producer")
             {
                 obj = (Producent)dict;
                 label1.Text = "Wpisz nazwę producenta";
-                textBox1.Text = (dict as Producent).Nazwa;
+                textBox1.Text = (dict as Producent)!.Nazwa;
                 url = "http://localhost:5297/api/Main/UpdateProducent";
             }
             else if (type == "type")
             {
                 obj = (Type)dict;
                 label1.Text = "Wpisz typ";
-                textBox1.Text = (dict as Type).Typ;
+                textBox1.Text = (dict as Type)!.Typ;
                 url = "http://localhost:5297/api/Main/UpdateType";
             }
             update = true;
@@ -80,15 +80,15 @@ namespace ProjektTAI
             }
 
             if (obj is Models)
-                Methods<Models>.AddOrModify(url, update ?
+                await Methods<Models>.AddOrModify(url, update ?
                     new Models() {Model = textBox1.Text,Id = obj.Id,CzescNaMagazynies = null } :
                     new Models() { Model = textBox1.Text,CzescNaMagazynies = null }, update);
             else if (obj is Producent)
-                Methods<Producent>.AddOrModify(url, update ?
+                await Methods<Producent>.AddOrModify(url, update ?
                     new Producent() { Nazwa = textBox1.Text, Id = obj.Id, CzescNaMagazynies = null } :
                     new Producent() { Nazwa = textBox1.Text, CzescNaMagazynies = null }, update);
             else if (obj is Type)
-                Methods<Type>.AddOrModify(url, update ?
+                await Methods<Type>.AddOrModify(url, update ?
                     new Type() { Typ = textBox1.Text, Id = obj.Id, CzescNaMagazynies = null } :
                     new Type() { Typ = textBox1.Text, CzescNaMagazynies = null }, update);
 

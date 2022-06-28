@@ -14,7 +14,7 @@ namespace ProjektTAI
 {
     public partial class Warehouse : Form
     {
-        List<CzescNaMagazyny> cz;
+        List<CzescNaMagazyny>? cz;
         public Warehouse()
         {
             InitializeComponent();
@@ -73,11 +73,31 @@ namespace ProjektTAI
             OpenAP(false);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenAP(true);
+        }
+
+        async private void button3_Click(object sender, EventArgs e)
+        {
+            var temp = GetGrid();
+            if (temp is null)
+                return;
+            string url = "http://localhost:5297/api/Main/DeleteCzesc";
+            await Methods<CzescNaMagazyny>.Deleter(url, temp.id);
+            this.Controls.Clear();
+            this.InitializeComponent();
+            LoadOnSetup();
+        }
+
         void OpenAP(bool modify)
         {
             if(modify)
             {
-                AddPart AP = new AddPart(new CzescNaMagazyny(), true); //<----------- zaimplementowac zaczytywanie wybranego obiektu z datagrid
+                CzescNaMagazyny? E = GetGrid();
+                if (E is null)
+                    return;
+                AddPart AP = new AddPart(E, true, new int[3] {E.idmodelu, E.idproducenta, E.idtypu });
                 AP.FormClosing += (s, e) => LoadOnSetup();
             }
             else
@@ -85,6 +105,33 @@ namespace ProjektTAI
                 AddPart AP = new AddPart();
                 AP.FormClosing += (s, e) => LoadOnSetup();
             }
+        }
+
+        CzescNaMagazyny? GetGrid()
+        {
+            CzescNaMagazyny? E = null;
+            if (cz == null)
+                return null;
+            try
+            {
+                E = cz[dataGridView1.SelectedRows[0].Index];
+                return E;
+            }
+            catch
+            {
+                try
+                {
+                    E = cz[dataGridView1.SelectedCells[0].RowIndex];
+                    return E;
+                }
+                catch
+                {
+                    MessageBox.Show("Zaznacz wiersz");
+                }
+            }
+            if (E == null)
+                return null;
+            return null;
         }
     }
 }

@@ -25,10 +25,10 @@ namespace ProjektTAI
             Visible = true;
             if(modify)
             {
-                textBox1.Text = (em.SpecjalizacjePracownikas[0]).NaprawaSoftu.ToString();
-                textBox2.Text = (em.SpecjalizacjePracownikas[0]).NaprawaCzesci.ToString();
-                textBox3.Text = (em.SpecjalizacjePracownikas[0]).Diagnostyka.ToString();
-                textBox4.Text = (em.SpecjalizacjePracownikas[0]).Budowanie.ToString();
+                textBox1.Text = (em.SpecjalizacjePracownikas![0]).NaprawaSoftu.ToString();
+                textBox2.Text = (em.SpecjalizacjePracownikas![0]).NaprawaCzesci.ToString();
+                textBox3.Text = (em.SpecjalizacjePracownikas![0]).Diagnostyka.ToString();
+                textBox4.Text = (em.SpecjalizacjePracownikas![0]).Budowanie.ToString();
                 url = "http://localhost:5297/api/Main/UpdateSpec";
             }
         }
@@ -39,25 +39,28 @@ namespace ProjektTAI
                 textBox2.Text == "" ||
                 textBox3.Text == "" ||
                 textBox4.Text == "")
-
+            {
                 MessageBox.Show("Wpisz wszystkie wartości");
-
-            if (int.Parse(textBox1.Text) > 5 ||
+                return;
+            }
+            else if (int.Parse(textBox1.Text) > 5 ||
                 int.Parse(textBox2.Text) > 5 ||
                 int.Parse(textBox3.Text) > 5 ||
                 int.Parse(textBox4.Text) > 5)
-
+            {
                 MessageBox.Show("Wartości nie mogą być większe od 5");
-
-            if (int.Parse(textBox1.Text) <= 0 ||
+                return;
+            }
+            else if (int.Parse(textBox1.Text) <= 0 ||
                 int.Parse(textBox2.Text) <= 0 ||
                 int.Parse(textBox3.Text) <= 0 ||
                 int.Parse(textBox4.Text) <= 0)
-
+            {
                 MessageBox.Show("Wartości nie mogą być mniejsze od 1");
-
+                return;
+            }
             if (!modify)
-                em.SpecjalizacjePracownikas.Add(new SpecjalizacjePracownika()
+                em.SpecjalizacjePracownikas!.Add(new SpecjalizacjePracownika()
                 {
                     Id = 0,
                     NaprawaSoftu = int.Parse(textBox1.Text),
@@ -68,13 +71,13 @@ namespace ProjektTAI
                 });
             else
             {
-                em.SpecjalizacjePracownikas[0].NaprawaSoftu = int.Parse(textBox1.Text);
-                em.SpecjalizacjePracownikas[0].NaprawaCzesci = int.Parse(textBox2.Text);
-                em.SpecjalizacjePracownikas[0].Diagnostyka = int.Parse(textBox3.Text);
-                em.SpecjalizacjePracownikas[0].Budowanie = int.Parse(textBox4.Text);
+                em.SpecjalizacjePracownikas![0].NaprawaSoftu = int.Parse(textBox1.Text);
+                em.SpecjalizacjePracownikas![0].NaprawaCzesci = int.Parse(textBox2.Text);
+                em.SpecjalizacjePracownikas![0].Diagnostyka = int.Parse(textBox3.Text);
+                em.SpecjalizacjePracownikas![0].Budowanie = int.Parse(textBox4.Text);
             }
             em.SpecjalizacjePracownikas[0].IdpracownikaNavigation = null;
-            Methods<SpecjalizacjePracownika>.AddOrModify(url,em.SpecjalizacjePracownikas[0], modify);
+            await Methods<SpecjalizacjePracownika>.AddOrModify(url,em.SpecjalizacjePracownikas[0], modify);
             Close();
         }
     }

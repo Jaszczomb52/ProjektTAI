@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# SYSLIB0014: Typ lub składowa jest przestarzała
+dotnet_diagnostic.SYSLIB0014.severity = suggestion

@@ -47,7 +47,7 @@ namespace ProjektTAI
             else if ((IDictionaries)comboBox1.SelectedItem is Type)
                 url = "http://localhost:5297/api/Main/DeleteType";
 
-            Methods<IDictionaries>.Deleter(url, (comboBox1.SelectedItem as IDictionaries).Id);
+            await Methods<IDictionaries>.Deleter(url, (comboBox1.SelectedItem as IDictionaries)!.Id);
             
             Methods<string>.GetDictionary(type, comboBox1);
         }

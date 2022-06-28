@@ -20,9 +20,14 @@ namespace ProjektTAI
     //    public List<object> SpecjalizacjePracownikas { get; set; }
     //    public List<object> Zlecenies { get; set; }
 
-        
+
     //}
 
+
+    public class DictList
+    {
+        public List<IDictionaries> dc { get; set; }
+    }
 
     public interface IDictionaries 
     {
