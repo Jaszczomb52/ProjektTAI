@@ -13,7 +13,7 @@ namespace ProjektTAI
 {
     public class Methods<T>
     {
-        async static public void Deleter(string url, int i)
+        async static public Task Deleter(string url, int i)
         {
             if (i == -1) return;
             using (HttpClient client = new HttpClient())
@@ -23,7 +23,7 @@ namespace ProjektTAI
                 {
                     res = await client.DeleteAsync(url + "/" + i);
                     if (res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
+                        return;
                 }
                 catch (Exception ex)
                 {
@@ -32,7 +32,7 @@ namespace ProjektTAI
             }
         }
 
-        public static void GetDictionary(string type, ComboBox cb)
+        public static DictList GetDictionary(string type, ComboBox cb)
         {
             cb.Items.Clear();
             string url = "";
@@ -47,6 +47,7 @@ namespace ProjektTAI
             {
                 try
                 {
+                    DictList dc = new DictList();
                     IDictionaries[]? emp = null;
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
                     if (type == "model")
@@ -61,15 +62,18 @@ namespace ProjektTAI
                     {
                         cb.Items.Add(x);
                     }
+                    dc.dc = emp.ToList();
+                    return dc;
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.ToString());
+                    return null;
                 }
             }
         }
 
-        async public static void AddOrModify(string url, T input, bool modify)
+        async public static Task AddOrModify(string url, T input, bool modify)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -81,7 +85,8 @@ namespace ProjektTAI
                         await client.PostAsJsonAsync(url, input);
 
                     if (res.IsSuccessStatusCode)
-                        MessageBox.Show(await res.Content.ReadAsStringAsync());
+                        return;
+                    //MessageBox.Show(await res.Content.ReadAsStringAsync());
                     else
                         MessageBox.Show("Nieprawidłowe wywołanie" + await res.Content.ReadAsStringAsync());
                 }

@@ -61,7 +61,7 @@ namespace ProjektTAI
             emp.Nazwisko = textBox2.Text;
             emp.NumerTelefonu = textBox3.Text;
 
-            Methods<Emplo>.AddOrModify(url, emp,update);
+            await Methods<Emplo>.AddOrModify(url, emp, update);
             Close();
         }
     }

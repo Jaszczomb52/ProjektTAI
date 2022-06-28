@@ -90,17 +90,19 @@ namespace ProjektTAI
                     MessageBox.Show("Zaznacz wiersz");
                 }
             }
+            
 
             if (E == null)
                 return;
 
             string url = "http://localhost:5297/api/Main/DeleteEmployee";
-            Methods<Emplo>.Deleter(url, E.Id);
+            await Methods<Emplo>.Deleter(url, E.Id);
+            LoadOnSetup();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Specjalizacje S = new Specjalizacje(employees);
+            Specjalizacje S = new Specjalizacje(employees!);
             S.FormClosing += (s, e) => LoadOnSetup();
         }
 
@@ -113,12 +115,12 @@ namespace ProjektTAI
                 {
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
                     var emp = JsonConvert.DeserializeObject<Emplo[]>(text);
-                    return emp;
+                    return emp!;
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.ToString());
-                    return null;
+                    return null!;
                 }
             }
         }

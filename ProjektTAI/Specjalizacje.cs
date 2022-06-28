@@ -26,7 +26,7 @@ namespace ProjektTAI
         void LoadEmplo(Emplo emp)
         {
             ReloadEmplo();
-            dataGridView1.DataSource = emp.SpecjalizacjePracownikas.Select(x =>
+            dataGridView1.DataSource = emp.SpecjalizacjePracownikas!.Select(x =>
             new CustomSpecjalizacjePracownika 
             {
                 NaprawaSoftu = x.NaprawaSoftu,
@@ -51,12 +51,12 @@ namespace ProjektTAI
                 MessageBox.Show("Brak wpisu. Dodaj wpis aby go modyfikować.");
         }
         
-        private void button3_Click(object sender, EventArgs e)
+        async private void button3_Click(object sender, EventArgs e)
         {
             if (SpecChecker())
             {
-                Methods<Emplo>.Deleter("http://localhost:5297/api/Main/DeleteSpec", comboBox1.SelectedItem as Emplo is not null ? (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas[0].Id : -1);
-                LoadEmplo((Emplo)comboBox1.SelectedItem);
+                await Methods<Emplo>.Deleter("http://localhost:5297/api/Main/DeleteSpec", comboBox1.SelectedItem as Emplo is not null ? (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas![0].Id : -1);
+                Close();
             }
             else
                 MessageBox.Show("Nie ma wpisu do usunięcia.");
@@ -64,7 +64,7 @@ namespace ProjektTAI
 
         bool SpecChecker()
         {
-            return (comboBox1.SelectedItem as Emplo).SpecjalizacjePracownikas.Count == 1 ? true : false;
+            return (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas!.Count == 1 ? true : false;
         }
 
         void CreateAS(bool modify)
