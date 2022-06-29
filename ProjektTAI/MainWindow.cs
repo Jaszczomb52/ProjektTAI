@@ -22,17 +22,19 @@ namespace ProjektTAI
             Employees empl = new Employees();
             empl.Visible = true;
             Visible = false;
-            empl.FormClosing += Empl_FormClosing;
-        }
-
-        private void Empl_FormClosing(object? sender, FormClosingEventArgs e)
-        {
-            Visible = true;
+            empl.FormClosing += (s,e) => Visible = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Warehouse W = new Warehouse();
+            Visible = false;
+            W.FormClosing += (s, e) => Visible = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
