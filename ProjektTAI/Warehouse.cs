@@ -65,7 +65,8 @@ namespace ProjektTAI
         private void btnEvent(string type)
         {
             EditDictionaries ED = new EditDictionaries(type);
-            ED.FormClosing += (closedSender, closedE) => LoadOnSetup();
+            Enabled = false;
+            ED.FormClosing += (closedSender, closedE) => { LoadOnSetup(); Enabled = true; };
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -85,25 +86,27 @@ namespace ProjektTAI
                 return;
             string url = "http://localhost:5297/api/Main/DeleteCzesc";
             await Methods<CzescNaMagazyny>.Deleter(url, temp.id);
-            this.Controls.Clear();
-            this.InitializeComponent();
+            Controls.Clear();
+            InitializeComponent();
             LoadOnSetup();
         }
 
         void OpenAP(bool modify)
         {
-            if(modify)
+            if (modify)
             {
                 CzescNaMagazyny? E = GetGrid();
                 if (E is null)
                     return;
-                AddPart AP = new AddPart(E, true, new int[3] {E.idmodelu, E.idproducenta, E.idtypu });
-                AP.FormClosing += (s, e) => LoadOnSetup();
+                AddPart AP = new AddPart(E, true, new int[3] { E.idmodelu, E.idproducenta, E.idtypu });
+                Enabled = false;
+                AP.FormClosing += (s, e) => { LoadOnSetup(); Enabled = true; };
             }
             else
             {
                 AddPart AP = new AddPart();
-                AP.FormClosing += (s, e) => LoadOnSetup();
+                Enabled = false;
+                AP.FormClosing += (s, e) => { LoadOnSetup(); Enabled = true; };
             }
         }
 

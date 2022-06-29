@@ -32,15 +32,10 @@ namespace ProjektTAI
         private void button2_Click(object sender, EventArgs e)
         {
             AddEmployee AE = new AddEmployee();
-            AE.FormClosing += AE_FormClosing;
-            Visible = false;
+            Enabled = false;
+            AE.FormClosing += (s, e) => { LoadOnSetup(); Enabled = true; };
         }
 
-        private void AE_FormClosing(object? sender, FormClosingEventArgs e)
-        {
-            LoadOnSetup();
-            Visible = true;
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -65,8 +60,8 @@ namespace ProjektTAI
             if (E == null)
                 return;
             AddEmployee AE = new AddEmployee(E);
-            AE.FormClosing += AE_FormClosing;
-            Visible = false;
+            Enabled = false;
+            AE.FormClosing += (s, e) => { LoadOnSetup(); Enabled = true; };
         }
 
         async private void button3_Click(object sender, EventArgs e)
@@ -103,7 +98,8 @@ namespace ProjektTAI
         private void button4_Click(object sender, EventArgs e)
         {
             Specjalizacje S = new Specjalizacje(employees!);
-            S.FormClosing += (s, e) => LoadOnSetup();
+            Enabled = false;
+            S.FormClosing += (s, e) => { LoadOnSetup(); Enabled = true; };
         }
 
         public static Emplo[] GetEmplos()
