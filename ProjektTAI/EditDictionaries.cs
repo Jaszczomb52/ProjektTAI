@@ -20,21 +20,31 @@ namespace ProjektTAI
         {
             InitializeComponent();
             Visible = true;
-            Methods<string>.GetDictionary(type,comboBox1);
+            dict(type);
             this.type = type;
+        }
+
+        void dict(string type)
+        {
+            if (type == "model")
+                Methods<Models>.GetDictionary(comboBox1);
+            if (type == "producer")
+                Methods<Producent>.GetDictionary(comboBox1);
+            if (type == "type")
+                Methods<Type>.GetDictionary(comboBox1);
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
             DictionaryMonit dm = new DictionaryMonit(type);
-            dm.FormClosing += (closedSender, closedE) => Methods<string>.GetDictionary(type,comboBox1);
+            dm.FormClosing += (closedSender, closedE) => dict(type);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             DictionaryMonit dm = new DictionaryMonit(type, (IDictionaries)comboBox1.SelectedItem);
-            dm.FormClosing += (closedSender, closedE) => Methods<string>.GetDictionary(type, comboBox1);
+            dm.FormClosing += (closedSender, closedE) => dict(type);
         }
 
         async private void button3_Click(object sender, EventArgs e)
@@ -48,8 +58,7 @@ namespace ProjektTAI
                 url = "http://localhost:5297/api/Main/DeleteType";
 
             await Methods<IDictionaries>.Deleter(url, (comboBox1.SelectedItem as IDictionaries)!.Id);
-            
-            Methods<string>.GetDictionary(type, comboBox1);
+            dict(type);
         }
     }
 }

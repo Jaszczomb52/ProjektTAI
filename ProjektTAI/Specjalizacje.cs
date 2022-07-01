@@ -25,7 +25,6 @@ namespace ProjektTAI
 
         void LoadEmplo(Emplo emp)
         {
-            ReloadEmplo();
             dataGridView1.DataSource = emp.SpecjalizacjePracownikas!.Select(x =>
             new CustomSpecjalizacjePracownika 
             {
@@ -34,6 +33,7 @@ namespace ProjektTAI
                 Budowanie = x.Budowanie,
                 Diagnostyka = x.Diagnostyka,
             }).ToList();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,7 +56,8 @@ namespace ProjektTAI
             if (SpecChecker())
             {
                 await Methods<Emplo>.Deleter("http://localhost:5297/api/Main/DeleteSpec", comboBox1.SelectedItem as Emplo is not null ? (comboBox1.SelectedItem as Emplo)!.SpecjalizacjePracownikas![0].Id : -1);
-                Close();
+                ReloadEmplo();
+                LoadEmplo((Emplo)comboBox1.SelectedItem);
             }
             else
                 MessageBox.Show("Nie ma wpisu do usunięcia.");
@@ -70,13 +71,19 @@ namespace ProjektTAI
         void CreateAS(bool modify)
         {
             AddSpec AS = new AddSpec((Emplo)comboBox1.SelectedItem, modify);
-            AS.FormClosing += (s, e) => LoadEmplo((Emplo)comboBox1.SelectedItem);
+            AS.FormClosing += (s, e) =>
+            {
+                ReloadEmplo(); 
+                LoadEmplo((Emplo)comboBox1.SelectedItem);
+            };
         }
 
         private void ReloadEmplo()
         {
             var temp = Employees.GetEmplos();
-            emps = temp is null ? temp : new Emplo[1];
+            emps = temp;
+            emps = temp ?? new Emplo[1];
+            comboBox1.DataSource = emps;
             temp = null;
         }
 
