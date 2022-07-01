@@ -34,7 +34,9 @@ namespace ProjektTAI
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            Requests R = new Requests();
+            Visible = false;
+            R.FormClosing += (s, e) => Visible = true;
         }
     }
 }

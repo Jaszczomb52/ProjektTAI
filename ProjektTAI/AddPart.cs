@@ -47,9 +47,9 @@ namespace ProjektTAI
 
         private void LoadCombos()
         {
-            md = Methods<Models>.GetDictionary("model",comboBox3);
-            pr = Methods<Producent>.GetDictionary("producer",comboBox2);
-            tp = Methods<Type>.GetDictionary("type", comboBox1);
+            md = Methods<Models>.GetDictionary(comboBox3);
+            pr = Methods<Producent>.GetDictionary(comboBox2);
+            tp = Methods<Type>.GetDictionary(comboBox1);
         }
 
         async private void button1_Click(object sender, EventArgs e)

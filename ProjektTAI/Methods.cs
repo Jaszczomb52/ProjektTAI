@@ -32,15 +32,15 @@ namespace ProjektTAI
             }
         }
 
-        public static DictList GetDictionary(string type, ComboBox cb)
+        public static DictList GetDictionary(ComboBox cb)
         {
             cb.Items.Clear();
             string url = "";
-            if (type == "model")
+            if (typeof(T).Name == "Models")
                 url = "http://localhost:5297/api/Main/GetModels";
-            if (type == "producer")
+            if (typeof(T).Name == "Producent")
                 url = "http://localhost:5297/api/Main/GetProducents";
-            if (type == "type")
+            if (typeof(T).Name == "Type")
                 url = "http://localhost:5297/api/Main/GetTypes";
 
             using (WebClient client = new WebClient())
@@ -50,11 +50,11 @@ namespace ProjektTAI
                     DictList dc = new DictList();
                     IDictionaries[]? emp = null;
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
-                    if (type == "model")
+                    if (typeof(T).Name == "Models")
                         emp = JsonConvert.DeserializeObject<Models[]>(text);
-                    else if (type == "producer")
+                    else if (typeof(T).Name == "Producent")
                         emp = JsonConvert.DeserializeObject<Producent[]>(text);
-                    else if (type == "type")
+                    else if (typeof(T).Name == "Type")
                         emp = JsonConvert.DeserializeObject<Type[]>(text);
                     if (emp == null)
                         throw new NoNullAllowedException();
@@ -62,6 +62,42 @@ namespace ProjektTAI
                     {
                         cb.Items.Add(x);
                     }
+                    dc.dc = emp.ToList();
+                    return dc;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    return null;
+                }
+            }
+        }
+
+        public static DictList GetDictionary()
+        {
+            string url = "";
+            if (typeof(T).Name == "Models")
+                url = "http://localhost:5297/api/Main/GetModels";
+            if (typeof(T).Name == "Producent")
+                url = "http://localhost:5297/api/Main/GetProducents";
+            if (typeof(T).Name == "Type")
+                url = "http://localhost:5297/api/Main/GetTypes";
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    DictList dc = new DictList();
+                    IDictionaries[]? emp = null;
+                    string text = Encoding.UTF8.GetString(client.DownloadData(url));
+                    if (typeof(T).Name == "Models")
+                        emp = JsonConvert.DeserializeObject<Models[]>(text);
+                    else if (typeof(T).Name == "Producent")
+                        emp = JsonConvert.DeserializeObject<Producent[]>(text);
+                    else if (typeof(T).Name == "Type")
+                        emp = JsonConvert.DeserializeObject<Type[]>(text);
+                    if (emp == null)
+                        throw new NoNullAllowedException();
                     dc.dc = emp.ToList();
                     return dc;
                 }
@@ -86,7 +122,7 @@ namespace ProjektTAI
 
                     if (res.IsSuccessStatusCode)
                         return;
-                    //MessageBox.Show(await res.Content.ReadAsStringAsync());
+                        //MessageBox.Show(await res.Content.ReadAsStringAsync());
                     else
                         MessageBox.Show("Nieprawidłowe wywołanie" + await res.Content.ReadAsStringAsync());
                 }

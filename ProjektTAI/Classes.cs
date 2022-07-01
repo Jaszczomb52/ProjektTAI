@@ -7,22 +7,6 @@ using System.Threading.Tasks;
 
 namespace ProjektTAI
 {
-    //public class Emplo
-    //{
-    //    [DisplayName("Identyfikator")]
-    //    public int Id { get; set; }
-    //    [DisplayName("Imię")]
-    //    public string Imie { get; set; }
-    //    [DisplayName("Nazwisko")]
-    //    public string Nazwisko { get; set; }
-    //    [DisplayName("Numer telefonu")]
-    //    public string NumerTelefonu { get; set; }
-    //    public List<object> SpecjalizacjePracownikas { get; set; }
-    //    public List<object> Zlecenies { get; set; }
-
-
-    //}
-
 
     public class DictList
     {
@@ -78,29 +62,16 @@ namespace ProjektTAI
         public DateTime dataWpisu { get; set; }
         public int idzlecenia { get; set; }
         public int idczesci { get; set; }
-        public object? idczesciNavigation { get; set; }
-        public object? idzleceniaNavigation { get; set; }
+        public CzescNaMagazyny? idczesciNavigation { get; set; }
+        public Zleceny? idzleceniaNavigation { get; set; }
     }
 
-    public class IdmodeluNavigation
+    public class CustomCzescUzytaDoZlecenium
     {
         public int id { get; set; }
-        public string model { get; set; }
-        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
-    }
-
-    public class IdproducentaNavigation
-    {
-        public int id { get; set; }
-        public string nazwa { get; set; }
-        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
-    }
-
-    public class IdtypuNavigation
-    {
-        public int id { get; set; }
-        public string typ { get; set; }
-        public List<CzescNaMagazyny>? czescNaMagazynies { get; set; }
+        public DateTime dataWpisu { get; set; }
+        public string? idczesciNavigation { get; set; }
+        public string? idzleceniaNavigation { get; set; }
     }
 
     public class CzescNaMagazyny
@@ -120,6 +91,11 @@ namespace ProjektTAI
         [DisplayName("Typ części")]
         public Type? idtypuNavigation { get; set; }
         public List<CzescUzytaDoZlecenium>? czescUzytaDoZlecenia { get; set; }
+
+        public override string ToString()
+        {
+            return $"{id} {kodSegmentu} {idmodeluNavigation} {idproducentaNavigation} {idtypuNavigation}";
+        }
     }
 
     public class CustomCzescNaMagazyny
@@ -186,14 +162,20 @@ namespace ProjektTAI
         public string Nazwisko { get; set; }
         public bool KontaktTelefoniczny { get; set; }
         public DateTime DataPrzyjecia { get; set; }
-        public double Koszt { get; set; }
-        public object DataWydania { get; set; }
-        public object NumerTelefonu { get; set; }
+        public decimal Koszt { get; set; }
+        public DateTime? DataWydania { get; set; }
+        public string? NumerTelefonu { get; set; }
         public string Status { get; set; }
         public bool SzybkieZlecenie { get; set; }
         public string OpisZlecenia { get; set; }
         public int Idpracownika { get; set; }
-        public object? IdpracownikaNavigation { get; set; }
+        public Emplo? IdpracownikaNavigation { get; set; }
         public List<object>? CzescUzytaDoZlecenia { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} {Imie} {Nazwisko} {Email}";
+        }
     }
+
 }

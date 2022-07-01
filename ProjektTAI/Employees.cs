@@ -109,6 +109,7 @@ namespace ProjektTAI
             {
                 try
                 {
+                    Thread.Sleep(20);
                     string text = Encoding.UTF8.GetString(client.DownloadData(url));
                     var emp = JsonConvert.DeserializeObject<Emplo[]>(text);
                     return emp!;
