@@ -91,7 +91,7 @@ namespace ProjektTAI
                 await Methods<Type>.AddOrModify(url, update ?
                     new Type() { Typ = textBox1.Text, Id = obj.Id, CzescNaMagazynies = null } :
                     new Type() { Typ = textBox1.Text, CzescNaMagazynies = null }, update);
-
+            Close();
         }
     }
 }
